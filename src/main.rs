@@ -1,15 +1,20 @@
-mod convert_temperature;
-mod fibonacci;
-mod guessing_game;
-mod string;
+use std::{env, process};
+
+use minigrep::{run, Config};
 
 fn main() {
-    // converted_temperature::convert();
-    // guessing_game::start();
-    let username_result = string::read_username_from_file();
+    let args: Vec<String> = env::args().collect();
 
-    match username_result {
-        Ok(username) => println!("username: {}", username),
-        Err(error) => println!("error: {}", error),
+    let config = Config::build(&args).unwrap_or_else(|err| {
+        println!("Problem parsing arguments: {err}");
+        process::exit(1);
+    });
+
+    println!("Searching for {}", config.query);
+    println!("In file {}", config.file_path);
+
+    if let Err(e) = run(config) {
+        println!("Application error: {e}");
+        process::exit(1);
     }
 }
