@@ -3,7 +3,8 @@ members = [
     "caka",
     "guessing_game",
     "convert_temperature",
-    "fibonacci"
+    "fibonacci",
+    "minigrep"
 ]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
