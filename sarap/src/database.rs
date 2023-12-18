@@ -1,5 +1,5 @@
 use std::fs::{File, OpenOptions};
-use std::io::Write;
+use std::io::{BufRead, BufReader, Write};
 
 pub struct Record {
     pub id: u32,
@@ -25,5 +25,30 @@ impl Database {
         let line = format!("{},{}\n", record.id, record.content);
         writeln!(self.file, "{}", line).unwrap();
         println!("📃 Item added: {}", record.content);
+    }
+
+    pub fn read_records(&mut self) -> Vec<Record> {
+        let reader = BufReader::new(&self.file);
+        reader
+            .lines()
+            .map_while(Result::ok)
+            .filter(|line| !line.is_empty())
+            .map(|line| parse_record_line(&line))
+            .collect()
+    }
+}
+
+pub fn parse_record_line(line: &str) -> Record {
+    let fields: Vec<&str> = line.split(',').collect();
+    if fields.len() == 1 {
+        return Record {
+            id: 0,
+            content: "".to_string(),
+        };
+    }
+    let content = fields[1..].join(",");
+    Record {
+        id: fields[0].parse::<u32>().unwrap(),
+        content,
     }
 }
