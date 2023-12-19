@@ -37,6 +37,8 @@ fn main() {
                 println!("Usage: sarap rm [id]");
                 return;
             }
+            let id = args[2].parse::<u32>().unwrap();
+            db.remove_record(id);
         }
         "ls" => {
             let records = db.read_records();
