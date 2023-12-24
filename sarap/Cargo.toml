@@ -1,8 +1,11 @@
 [package]
 name = "sarap"
 version = "0.1.0"
+edition = "2021"
 description = "Sarap is a delightful companion on your journey to productivity, bringing a taste of joy and simplicity to your daily tasks. "
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+clap = { version = "3.0", features = ["derive"] }
+dirs = "5.0.0"
