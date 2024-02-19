@@ -14,8 +14,16 @@ async fn post_gemini(gemini_target: String, prompt: String) -> Result<(), Error>
         .send()
         .await?;
 
-    let response_body = response.text().await?;
-    println!("Response body:\n{}", response_body);
+    let response_body: Value = response.json().await?;
+    if let Some(candidates) = response_body.get("candidates") {
+        if let Some(content) = candidates[0].get("content") {
+            if let Some(parts) = content.get("parts") {
+                if let Some(text) = parts[0].get("text") {
+                    println!("{text}");
+                }
+            }
+        }
+    }
 
     Ok(())
 }
