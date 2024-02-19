@@ -1,12 +1,13 @@
 [workspace]
 members = [
-    "caka",
-    "guessing_game",
-    "convert_temperature",
-    "fibonacci",
-    "minigrep",
-    "sarap",
-    "ferris_say"
+  "caka",
+  "guessing_game",
+  "convert_temperature",
+  "fibonacci",
+  "minigrep",
+  "sarap",
+  "ferris_say",
+  "gemini",
 ]
 resolver = "2"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
